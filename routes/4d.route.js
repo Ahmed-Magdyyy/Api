@@ -4,7 +4,7 @@ const fourDmodel = require("../model/4d.model");
 const add4dMiddleware = require("../middleware/add4d.middleware");
 
 app.get('/all4d', async (req, res) => {
-  let data = await fourDmodel.find();
+  let data = await fourDmodel.find().populate('clientID');
   if (data.length != 0) {
     res.json(data);
   } else {
@@ -26,6 +26,7 @@ app.post("/add4d", add4dMiddleware, async (req, res, next) => {
       let fourDproject = await fourDmodel.insertMany({
         name: clientName,
         clientID:id,
+        fourDphotos,
         videoLink,
       });
       res.json({ message: "success", data: fourDproject[0] });
