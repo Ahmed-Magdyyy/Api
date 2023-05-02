@@ -1,14 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-const multer = require('multer');
 const PORT = 3000;
 const cors = require("cors")
-// const bodyParser = require('body-parser');
+const path = require('path');
 
 app.use(cors())
 app.use(express.urlencoded({ extended: false }));
-// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'uploads')));
 app.use(express.json());
 
 
@@ -23,6 +22,9 @@ app.use(require('./routes/3d.route'));
 app.use(require('./routes/4d.route'));
 app.use(require('./routes/animation.route'));
 app.use(require('./routes/websites.route'));
+app.use(require('./routes/digitalMarketing.route'));
+app.use(require('./routes/mediaProduction.route'));
+app.use(require('./routes/events.route'));
 
 
 app.listen(process.env.PORT || PORT, () =>
